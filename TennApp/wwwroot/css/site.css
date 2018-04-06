@@ -40,3 +40,8 @@
 .bg-graphicSet{
     background-color:rgb(66,66,66);
 }
+.section-title h2 {
+    font-family: 'Courgette', cursive;
+    font-size:2.2rem;
+    font-weight:500;
+}
