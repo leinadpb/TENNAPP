@@ -26,6 +26,11 @@ namespace TennApp.Controllers
             return View();
         }
 
+        public IActionResult Bills()
+        {
+            return View();
+        }
+
 
         public IActionResult Error()
         {

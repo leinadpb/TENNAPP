@@ -520,24 +520,32 @@ namespace TennApp.Data
                     ReferenceCode = "TENN005"
                 },
                 new ReportType{
-                    Name = "Usuarios confirmados",
+                    Name = "Todos los torneos",
                     ReferenceCode = "TENN006"
                 },
                 new ReportType{
-                    Name = "Cantidad de usuarios pagos y confirmados por categoria.",
+                    Name = "Usuarios confirmados",
                     ReferenceCode = "TENN007"
                 },
                 new ReportType{
-                    Name = "Porcentaje de usuarios pagos y no pagos",
+                    Name = "Cantidad de usuarios pagos y confirmados por categoria",
                     ReferenceCode = "TENN008"
                 },
                 new ReportType{
-                    Name = "Porcentaje de usuarios confirmados y no confirmados",
+                    Name = "Porcentaje de usuarios pagos y no pagos",
                     ReferenceCode = "TENN009"
                 },
                 new ReportType{
-                    Name = "Usuarios que han realizado al menos un pago.",
+                    Name = "Porcentaje de usuarios confirmados y no confirmados",
                     ReferenceCode = "TENN0010"
+                },
+                new ReportType{
+                    Name = "Usuarios que han realizado al menos un pago",
+                    ReferenceCode = "TENN0011"
+                },
+                new ReportType{
+                    Name = "Usuarios que han participado en cada torneo",
+                    ReferenceCode = "TENN0012"
                 },
             };
             foreach(var rt in ReportTypes)
