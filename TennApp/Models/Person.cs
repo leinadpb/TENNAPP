@@ -58,6 +58,8 @@ namespace TennApp.Models
 
         public List<Bill> Bills { get; set; }
 
+        public int TourneyID { get; set; }
+        public Tourney Tourney { get; set; }
 
     }
 }
