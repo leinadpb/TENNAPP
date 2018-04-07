@@ -222,7 +222,6 @@ namespace TennApp.Data
                     Category = Fosiles
                 },
             };
-
             foreach(var p in persons)
             {
                 _context.Persons.Add(p);
@@ -320,7 +319,7 @@ namespace TennApp.Data
             _context.SaveChanges();
 
             /**
-             * PERSONS - Veestijios
+             * PERSONS - Vestijios
              */
             var persons5 = new Person[]
             {
