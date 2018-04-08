@@ -11,3 +11,4 @@ Proyecto Final - Base de Datos I
 	* victor.alvarez
 	* emmanuel.pujols
 	* manny.valenzuela
+	* daniel.pena
