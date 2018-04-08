@@ -22,16 +22,12 @@ namespace TennApp.Data
         public DbSet<ReportType> ReportTypes { get; set; }
         public DbSet<TShirt> TShirts { get; set; }
         public DbSet<PaymentMethod> PaymentMethods { get; set; }
+        public DbSet<Tourney> Tourneys { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
 
-            //Explicity define on-to-one relation between Category and CategoryType
-            builder.Entity<Category>()
-                .HasOne(c => c.Type)
-                .WithOne(ct => ct.Category)
-                .HasForeignKey<CategoryType>(ct => ct.CategoryID);
 
             //Explicity define on-to-one relation between Bill y PaymentMethod
             builder.Entity<Bill>()

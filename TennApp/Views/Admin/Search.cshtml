@@ -1,16 +1,17 @@
-﻿@{
+﻿@model SearchViewModel
+@{
     ViewData["Title"] = "Búsqueda";
 }
 <div align="center" class="section-title"><h2>Búsqueda avanzada</h2></div>
 <br />
 <div>
-    <form>
+    <form method="get" asp-action="SearchBy">
         <div class="row">
             <div class="col-sm-5"></div>
             <div class="col-sm-2">
                 <select class="form-control form-control-sm">
                     <option>Por usuario</option>
-                    <option>Por categoría</option>
+                    <!--<option>Por categoría</option>-->
                 </select>
             </div>
             <div class="col-sm-5"></div>
@@ -19,7 +20,7 @@
         <div class="form-group row">
             <div class="col-sm-3"></div>
             <div class="col-sm-6">
-                <input type="text" class="form-control" id="staticSearch" value="" style="width:100%;">
+                <input type="text" class="form-control" id="staticSearch" placeholder="Buscar..." name="searchString" style="width:100%;">
             </div>
             <div class="col-sm-3"></div>
         </div>
@@ -29,20 +30,30 @@
             <div class="col-sm-2" align="right"><b>Filtros</b></div>
             <div class="col-sm-8" style="text-align:center;">
                 <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1">
+                    <input class="form-check-input" type="checkbox" id="payed_checkbox" value="false" name="payed">
                     <label class="form-check-label" for="inlineCheckbox1">Pagado</label>
                 </div>
                 <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="option2">
+                    <input class="form-check-input" type="checkbox" id="confirmed_checkbox" value="false" name="confirmed">
                     <label class="form-check-label" for="inlineCheckbox2">Confirmado</label>
                 </div>
                 <div class="form-check-inline">
                     <label class="form-check-label" for="inlineComboBox3">Camiseta </label>
-                    <select class="form-control form-control-sm" id="inlineComboBox3">
-                        <option>Small</option>
-                        <option>Medium</option>
-                        <option>Large</option>
-                        <option>XL</option>
+                    <select class="form-control form-control-sm" id="inlineComboBox3" name="tshirt">
+                        @foreach(var ts in Model.Tshirts)
+                        {
+                            if (ts.Size.Equals("N/A"))
+                            {
+
+                                <option value="@ts.TShirtID" selected>@ts.Size</option>
+                            }
+                            else
+                            {
+                                <option value="@ts.TShirtID">@ts.Size</option>
+
+                            }
+
+                        }
                     </select>
                 </div>
             </div>
@@ -59,32 +70,72 @@
     </form>
     <br /><br />
     <!-- Resultados -->
-    <div>
-        <table class="table table-bordered table-hover">
-            <tr>
-                <th>
-                    Nombre
-                </th>
-                <th>
-                    Teléfono
-                </th>
-                <th>
-                    Email
-                </th>
-                <th>
-                    Edad
-                </th>
-                <th>
-                    Camiseta
-                </th>
-            </tr>
-            <tr>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-            </tr>
-        </table>
-    </div>
+    @if (Model.People != null)
+    {
+        @if (Model.People.Count() == 0)
+        {
+            <div>No results found.</div>
+        }
+        else
+        {
+            <div class="table-responsive">
+                <table class="table table-bordered table-hover">
+                    <tr>
+                        <th>
+                            Nombre
+                        </th>
+                        <th>
+                            Teléfono
+                        </th>
+                        <th>
+                            Email
+                        </th>
+                        <th>
+                            Edad
+                        </th>
+                        <th>
+                            Camiseta
+                        </th>
+                    </tr>
+                    @foreach (var p in Model.People)
+                    {
+                        String fullName = "";
+                        if (p.FirstName != null) { fullName += p.FirstName; }
+                        if (p.SecondName != null) { fullName += " " + p.SecondName; }
+                        if (p.LastName != null) { fullName += " " + p.LastName; }
+                        if (p.SecondLastName != null) { fullName += " " + p.SecondLastName; }
+                        <tr>
+                            <td>@fullName</td>
+                            <td>@p.Phone</td>
+                            <td>@p.Email</td>
+                            <td>@p.Age</td>
+                            <td>@p.tshirtSize</td>
+                        </tr>
+                    }
+                </table>
+            </div>
+
+        }
+
+    }
 </div>
+@section Scripts{ 
+    <script type="text/javascript">
+        window.onload = function () { 
+            $('#payed_checkbox').click(function () { 
+                if ($(this).val() === "false") {
+                    $(this).val("true");
+                } else {
+                    $(this).val("false");
+                }
+            });
+            $('#confirmed_checkbox').click(function () {
+                if ($(this).val() === "false") {
+                    $(this).val("true");
+                } else {
+                    $(this).val("false");
+                }
+            });
+        };
+    </script>
+}

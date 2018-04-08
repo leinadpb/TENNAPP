@@ -28,13 +28,13 @@ namespace TennApp.Models
         [MaxLength(30, ErrorMessage = "The nickname is too long.")]
         public String Nickname { get; set; }
 
-        [MaxLength(13, ErrorMessage = "The phone number is too long.")]
+        [MaxLength(22, ErrorMessage = "The phone number is too long.")]
         public String Phone { get; set; }
 
         [MaxLength(70, ErrorMessage = "The email is too long.")]
         public String Email { get; set; }
 
-        [Range(12, 110, ErrorMessage = "The age is not in a valid range.")]
+        [Range(0, 110, ErrorMessage = "The age is not in a valid range.")]
         public int Age { get; set; }
 
         public bool Confirmed { get; set; }

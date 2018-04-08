@@ -1,27 +1,27 @@
-﻿
+﻿@model ReportsViewModel
 @{
     ViewData["Title"] = "Reports";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <div align="center" class="section-title"><h2>Reportes predefinidos</h2></div>
 <br />
-<form>
+<form method="post" asp-action="Reports">
     <div class="row">
         <div class="col-sm-4"></div>
         <div class="col-sm-4">
-            <select class="form-control form-control-sm">
-                <option>General</option>
-                <option>Por categoría</option>
-                <option>Por nombre de usuarios</option>
-                <option>Todos los torneos</option>
-                <option>Usuarios pagos y confirmados</option>
-                <option>Usuarios pagos</option>
-                <option>Usuarios confirmados</option>
-                <option>Cantidad de usuarios pagos y confirmados por categoria</option>
-                <option>Porcentaje de usuarios pagos y no pagos</option>
-                <option>Porcentaje de usuarios confirmados y no confirmados</option>
-                <option>Usuarios que han realizado al menos un pago</option>
-                <option>Usuarios que han participado en cada torneo</option>
+            <select class="form-control form-control-sm" name="reportType">
+                @foreach(var r in Model.Reports)
+                {
+                    if (r.ReferenceCode.Equals("TENN001"))
+                    {
+                        <option value="@r.ReferenceCode" selected>@r.Name</option>
+                    }
+                    else
+                    {
+                        <option value="@r.ReferenceCode">@r.Name</option>
+                    }
+
+                }
             </select>
         </div>
         <div class="col-sm-4"></div>
@@ -35,3 +35,57 @@
         <div class="col-sm-4"></div>
     </div>
 </form>
+<br />
+@if(Model.GeneralReport != null)
+{
+    <br />
+    <div align="center"><h1 class="display-4">Reporte General</h1></div>
+    <div align="center">
+        <p class="lead">
+            Todos los usuarios agrupados por categoría.
+        </p>
+    </div>
+    <br />
+    @foreach(var item in Model.GeneralReport)
+    {
+        <div><h4>@item.Category.Name</h4></div>
+        
+        <div class="table-responsive">
+            <table class="table table-bordered table-hover table-striped">
+                    <tr>
+                        <th>
+                            Nombre
+                        </th>
+                        <th>
+                            Teléfono
+                        </th>
+                        <th>
+                            Email
+                        </th>
+                        <th>
+                            Edad
+                        </th>
+                        <th>
+                            Camiseta
+                        </th>
+                    </tr>
+                    @foreach (var p in item.Persons)
+                    {
+                        String fullName = "";
+                        if (p.FirstName != null) { fullName += p.FirstName; }
+                        if (p.SecondName != null) { fullName += " " + p.SecondName; }
+                        if (p.LastName != null) { fullName += " " + p.LastName; }
+                        if (p.SecondLastName != null) { fullName += " " + p.SecondLastName; }
+                        <tr>
+                            <td>@fullName</td>
+                            <td>@p.Phone</td>
+                            <td>@p.Email</td>
+                            <td>@p.Age</td>
+                            <td>@p.tshirtSize</td>
+                        </tr>
+                    }
+                </table>
+        </div>
+    }
+
+}

@@ -15,8 +15,8 @@ namespace TennApp.Models
         public String Name { get; set; }
 
         //Navigation properties
-        public int CategoryID { get; set; }
-        public Category Category { get; set; }
+        public List<Category> Categories { get; set; }
+
 
 
     }

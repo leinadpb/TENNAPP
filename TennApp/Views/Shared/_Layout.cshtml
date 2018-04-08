@@ -14,6 +14,12 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.min.js" integrity="sha256-CfcERD4Ov4+lKbWbYqXD6aFM9M51gN4GUEtDhkWABMo=" crossorigin="anonymous"></script>
 
     <title>TennApp | @ViewData["Title"]</title>
+
+    <style>
+        .jumbotron{
+            margin-bottom:0 !important;
+        }
+    </style>
 </head>
 <body>
     <div id="wrapper" class="toggled">
@@ -22,15 +28,12 @@
         <div id="sidebar-wrapper">
             <ul class="sidebar-nav">
                 <li>
-                    ​<div><img src="~/images/logo_TENNAPP_main_white.png" class="img-fluid" alt="TENNAPP" style="width:110px;height:auto;text-align:center;"></div>
+                    ​<div><img src="~/images/logo_TENNAPP_main_white.png" class="img-fluid" alt="TENNAPP" style="width:80px;height:auto;text-align:center;"></div>
                 </li>
                 <li class="sidebar-brand">
                     <a asp-controller="Admin" asp-action="Dashboard">
                         TENNAPP
                     </a>
-                </li>
-                <li>
-                    <a asp-controller="Admin" asp-action="Dashboard">Dashboard</a>
                 </li>
                 <li>
                     <a asp-controller="Admin" asp-action="Search">Búsquedas</a>
@@ -40,6 +43,36 @@
                 </li>
                 <li>
                     <a asp-controller="Admin" asp-action="Bills">Facturas</a>
+                </li>
+                <li>
+                    ----------
+                </li>
+                <li>
+                    <a asp-controller="Tourneys" asp-action="Index">Torneos</a>
+                </li>
+                <li>
+                    <a asp-controller="Admin" asp-action="Payment">Añadir pago</a>
+                </li>
+                <li>
+                    ----------
+                </li>
+                <li>
+                    <a asp-controller="People" asp-action="Index">Personas</a>
+                </li>
+                <li>
+                    <a asp-controller="Categories" asp-action="Index">Categorías</a>
+                </li>
+                <li>
+                    <a asp-controller="TShirts" asp-action="Index">T-shirts</a>
+                </li>
+                <li>
+                    <a asp-controller="PaymentMethods" asp-action="Index">Métodos de pago</a>
+                </li>
+                <li>
+                    <a asp-controller="CategoryTypes" asp-action="Index">Tipos de categoría</a>
+                </li>
+                <li>
+                    <a asp-controller="ReportTypes" asp-action="Index">Tipos de reporte</a>
                 </li>
             </ul>
         </div>

@@ -24,8 +24,8 @@ namespace TennApp.Models
         [Range(0,110, ErrorMessage = "Not a valid age.")]
         public int MinAge { get; set; }
 
-        [Required]
-        public CategoryType Type { get; set; }
+        public int CategoryTypeID { get; set; }
+        public CategoryType CategoryType { get; set; }
 
         //Navigation Properties
         public List<Person> Persons { get; set; }

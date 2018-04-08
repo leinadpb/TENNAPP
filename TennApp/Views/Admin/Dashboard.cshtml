@@ -1,4 +1,5 @@
-﻿@{
+﻿@model DashboardViewModel
+@{
     ViewData["Title"] = "Dashboard";
 }
 <div align="center" class="section-title"><h2>Dashboard</h2></div>
@@ -7,15 +8,15 @@
     <div class="row">
         <div class="col-md-6">
             <div class="dash-main-wrapper">
-                <div class="number">150</div>
-                <div align="center" class="text">Total users</div>
+                <div class="number" name="@Model.TotalUsers" id="TotalUsers">@Model.TotalUsers</div>
+                <div align="center" class="text"><a asp-controller="People" asp-action="Index">Total users</a></div>
             </div>
         </div>
 
         <div class="col-md-6">
             <div class="dash-main-wrapper">
-                <div class="number">13</div>
-                <div align="center" class="text">Total categories</div>
+                <div class="number">@Model.TotalCategories</div>
+                <div align="center" class="text"><a asp-controller="Categories" asp-action="Index">Total categories</a></div>
             </div>
         </div>
     </div>
@@ -24,7 +25,7 @@
         <div class="col-md-4">
             <div class="dash-second-wrapper">
                 <div class="chart-box">
-                    <div class="number">26</div>
+                    <div class="number" id="TotalYoungUsers" name="@Model.YoungUsers">@Model.YoungUsers</div>
                     <canvas id="young-chart" style="width:100%;height:auto;text-align:center;"></canvas>
 
                     <div align="center" class="legend-desc">Young users</div>
@@ -34,7 +35,7 @@
         <div class="col-md-4">
             <div class="dash-second-wrapper">
                 <div class="chart-box">
-                    <div class="number">39</div>
+                    <div class="number" id="TotalAdultUsers" name="@Model.AdultUsers">@Model.AdultUsers</div>
                     <canvas id="adult-chart" style="width:100%;height:auto;text-align:center;"></canvas>
 
                     <div align="center" class="legend-desc">Adult users</div>
@@ -44,7 +45,7 @@
         <div class="col-md-4">
             <div class="dash-second-wrapper">
                 <div class="chart-box">
-                    <div class="number">55</div>
+                    <div class="number" id="TotalOldUsers" name="@Model.OldUsers">@Model.OldUsers</div>
                     <canvas id="old-chart" style="width:100%;height:auto;text-align:center;"></canvas>
 
                     <div align="center" class="legend-desc">Old users</div>
@@ -56,105 +57,115 @@
 
 @section Scripts{
     <script type="text/javascript">
-        //Show young users percentage in pie chart - using Chartjs
-        var data_young = {
-            datasets: [{
-                data: [26, 150],
-                backgroundColor: [
-                    'rgb(255,109,55)',
-                    'rgb(40,40,40)'
-                ],
-                borderColor: [
-                    'rgb(255,109,55)',
-                    'rgb(40,40,40)'
-                ],
-            }],
+        window.onload = function () {
+            //Show young users percentage in pie chart - using Chartjs
 
-            // These labels appear in the legend and in the tooltips when hovering different arcs
-            labels: [
-                'Young users',
-                'Other users'
-            ]
-        };
-        var data_adult = {
-            datasets: [{
-                data: [39, 150],
-                backgroundColor: [
-                    'rgb(255,109,55)',
-                    'rgb(40,40,40)'
-                ],
-                borderColor: [
-                    'rgb(255,109,55)',
-                    'rgb(40,40,40)'
-                ],
-            }],
+            //Variables
+            let youngUsersCount = parseInt($('#TotalYoungUsers').attr('name'));
+            let adultUsersCount = parseInt($('#TotalAdultUsers').attr('name'));
+            let oldUsersCount = parseInt($('#TotalOldUsers').attr('name'));
+            let UsersCount = parseInt($('#TotalUsers').attr('name'));
 
-            // These labels appear in the legend and in the tooltips when hovering different arcs
-            labels: [
-                "Adult's users",
-                'Other users'
-            ]
-        };
-        var data_old = {
-            datasets: [{
-                data: [55, 150],
-                backgroundColor: [
-                    'rgb(255,109,55)',
-                    'rgb(40,40,40)'
-                ],
-                borderColor: [
-                    'rgb(255,109,55)',
-                    'rgb(40,40,40)'
-                ],
-            }],
+            var data_young = {
+                datasets: [{
+                    data: [youngUsersCount, UsersCount],
+                    backgroundColor: [
+                        'rgb(255,109,55)',
+                        'rgb(40,40,40)'
+                    ],
+                    borderColor: [
+                        'rgb(255,109,55)',
+                        'rgb(40,40,40)'
+                    ],
+                }],
 
-            // These labels appear in the legend and in the tooltips when hovering different arcs
-            labels: [
-                'Old users',
-                'Other users'
-            ]
+                // These labels appear in the legend and in the tooltips when hovering different arcs
+                labels: [
+                    'Young users',
+                    'Other users'
+                ]
+            };
+            var data_adult = {
+                datasets: [{
+                    data: [adultUsersCount, UsersCount],
+                    backgroundColor: [
+                        'rgb(255,109,55)',
+                        'rgb(40,40,40)'
+                    ],
+                    borderColor: [
+                        'rgb(255,109,55)',
+                        'rgb(40,40,40)'
+                    ],
+                }],
+
+                // These labels appear in the legend and in the tooltips when hovering different arcs
+                labels: [
+                    "Adult's users",
+                    'Other users'
+                ]
+            };
+            var data_old = {
+                datasets: [{
+                    data: [oldUsersCount, UsersCount],
+                    backgroundColor: [
+                        'rgb(255,109,55)',
+                        'rgb(40,40,40)'
+                    ],
+                    borderColor: [
+                        'rgb(255,109,55)',
+                        'rgb(40,40,40)'
+                    ],
+                }],
+
+                // These labels appear in the legend and in the tooltips when hovering different arcs
+                labels: [
+                    'Old users',
+                    'Other users'
+                ]
+            };
+            var young_ctx = document.getElementById("young-chart").getContext('2d');
+            var youngChart = new Chart(young_ctx, {
+                type: 'pie',
+                data: data_young,
+                options: {
+                    legend: {
+                        display: true,
+                        labels: {
+                            fontColor: 'rgb(0,0,0)'
+                        },
+                        position: 'bottom'
+                    }
+                }
+            });
+            var adult_ctx = document.getElementById("adult-chart").getContext('2d');
+            var adultChart = new Chart(adult_ctx, {
+                type: 'pie',
+                data: data_adult,
+                options: {
+                    legend: {
+                        display: true,
+                        labels: {
+                            fontColor: 'rgb(0,0,0)'
+                        },
+                        position: 'bottom'
+                    }
+                }
+            });
+            var old_ctx = document.getElementById("old-chart").getContext('2d');
+            var oldChart = new Chart(old_ctx, {
+                type: 'pie',
+                data: data_old,
+                options: {
+                    legend: {
+                        display: true,
+                        labels: {
+                            fontColor: 'rgb(0,0,0)'
+                        },
+                        position: 'bottom'
+                    }
+                }
+            });
+
         };
-        var young_ctx = document.getElementById("young-chart").getContext('2d');
-        var youngChart = new Chart(young_ctx, {
-            type: 'pie',
-            data: data_young,
-            options: {
-                legend: {
-                    display: true,
-                    labels: {
-                        fontColor: 'rgb(255,255,241)'
-                    },
-                    position:'bottom'
-                }
-            }
-        });
-        var adult_ctx = document.getElementById("adult-chart").getContext('2d');
-        var adultChart = new Chart(adult_ctx, {
-            type: 'pie',
-            data: data_adult,
-            options: {
-                legend: {
-                    display: true,
-                    labels: {
-                        fontColor: 'rgb(255,255,241)'
-                    },
-                    position: 'bottom'
-                }
-            }
-        });
-        var old_ctx = document.getElementById("old-chart").getContext('2d');
-        var oldChart = new Chart(old_ctx, {
-            type: 'pie',
-            data: data_old,
-            options: {
-                legend: {
-                    display: true,
-                    labels: {
-                        fontColor: 'rgb(255,255,241)'
-                    },
-                    position: 'bottom'
-                }
-            }
-        });
     </script>
 }

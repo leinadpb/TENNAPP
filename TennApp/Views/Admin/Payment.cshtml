@@ -1,0 +1,79 @@
+﻿
+@{
+    ViewData["Title"] = "Payment";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<br /><br />
+<h2>Añadir pago</h2>
+<hr />
+<form method="post" asp-action="Payment">
+    <div class="jumbotron jumbotron-fluid">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-8">
+                    <h1 class="display-4">FACTURA</h1>
+                </div>
+                <div class="col-sm-4">
+                    <input type="text" name="code" value="00-00000001" class="form-control" readonly />
+                </div>
+            </div>
+            <br />
+            <div class="row">
+                <div class="col-sm-4">
+                    <div class="form-inline">
+                        <label><b>Usuario: </b></label>
+                        <select class="form-control" id="userList" name="userList">
+                            <option value="">Albert Lorenzo</option>
+                            <option value="">Marco Paolo</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+
+                </div>
+                <div class="col-sm-4">
+                    <div class="form-inline">
+                        <label><b>Fecha: </b></label>
+                        <input class="form-control" readonly type="text" name="todayDate" value="@DateTime.Now.ToShortDateString()" />
+                    </div>
+                </div>
+            </div>
+            <br /><br />
+            <div class="row">
+                <div class="col-sm-3"></div>
+                <div class="col-sm-6">
+                    <div class="form">
+                        <div align="center"><h3>Torneo</h3></div>
+                        <select class="form-control" id="tourneyList" name="tourneyList">
+                            <option value="">Albert Lorenzo</option>
+                            <option value="">Marco Paolo</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-sm-3"></div>
+            </div>
+            <br /><br /><br />
+            <div class="row">
+                <div class="col-sm-6">
+                    <h1 class="display-4">Monto: RD$<span>4,900</span></h1>
+                </div>
+                <div class="col-sm-2"></div>
+                <div class="col-sm-4">
+                    <div class="form">
+                        <div align="center"><h5>Metodo de pago</h5></div>
+                        <select class="form-control input-sm" id="paymentList" name="paymentList">
+                            <option value="">Albert Lorenzo</option>
+                            <option value="">Marco Paolo</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12">
+            <button class="btn btn-primary btn-block btn-lg">Efectuar pago</button>
+        </div>
+    </div>
+</form>

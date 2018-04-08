@@ -1,0 +1,12 @@
+C:\Users\danie\Desktop\apps\TennApp\TennApp\bin\Release\netcoreapp2.0\TennApp.deps.json
+C:\Users\danie\Desktop\apps\TennApp\TennApp\bin\Release\netcoreapp2.0\TennApp.runtimeconfig.json
+C:\Users\danie\Desktop\apps\TennApp\TennApp\bin\Release\netcoreapp2.0\TennApp.runtimeconfig.dev.json
+C:\Users\danie\Desktop\apps\TennApp\TennApp\bin\Release\netcoreapp2.0\TennApp.dll
+C:\Users\danie\Desktop\apps\TennApp\TennApp\bin\Release\netcoreapp2.0\TennApp.pdb
+C:\Users\danie\Desktop\apps\TennApp\TennApp\obj\Release\netcoreapp2.0\TennApp.csproj.CoreCompileInputs.cache
+C:\Users\danie\Desktop\apps\TennApp\TennApp\obj\Release\netcoreapp2.0\UserSecretsAssemblyInfo.cs
+C:\Users\danie\Desktop\apps\TennApp\TennApp\obj\Release\netcoreapp2.0\TennApp.AssemblyInfoInputs.cache
+C:\Users\danie\Desktop\apps\TennApp\TennApp\obj\Release\netcoreapp2.0\TennApp.AssemblyInfo.cs
+C:\Users\danie\Desktop\apps\TennApp\TennApp\obj\Release\netcoreapp2.0\TennApp.dll
+C:\Users\danie\Desktop\apps\TennApp\TennApp\obj\Release\netcoreapp2.0\TennApp.pdb
+C:\Users\danie\Desktop\apps\TennApp\TennApp\obj\Release\netcoreapp2.0\TennApp.csprojResolveAssemblyReference.cache
