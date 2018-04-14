@@ -60,6 +60,7 @@ C:\Users\danie\Desktop\apps\TennApp\TennApp
 --file=C:\Users\danie\Desktop\apps\TennApp\TennApp\Views\ReportTypes\Edit.cshtml
 --file=C:\Users\danie\Desktop\apps\TennApp\TennApp\Views\ReportTypes\Index.cshtml
 --file=C:\Users\danie\Desktop\apps\TennApp\TennApp\Views\Shared\Error.cshtml
+--file=C:\Users\danie\Desktop\apps\TennApp\TennApp\Views\Shared\_GeneralLayout.cshtml
 --file=C:\Users\danie\Desktop\apps\TennApp\TennApp\Views\Shared\_Layout.cshtml
 --file=C:\Users\danie\Desktop\apps\TennApp\TennApp\Views\Shared\_LoginPartial.cshtml
 --file=C:\Users\danie\Desktop\apps\TennApp\TennApp\Views\Shared\_ValidationScriptsPartial.cshtml
