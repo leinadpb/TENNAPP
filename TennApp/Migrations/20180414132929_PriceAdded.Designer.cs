@@ -11,8 +11,8 @@ using TennApp.Data;
 namespace TennApp.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20180407192851_ReportTypeNameMaxSizeTo120")]
-    partial class ReportTypeNameMaxSizeTo120
+    [Migration("20180414132929_PriceAdded")]
+    partial class PriceAdded
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -276,6 +276,9 @@ namespace TennApp.Migrations
 
                     b.Property<int>("CategoryID");
 
+                    b.Property<string>("Cedula")
+                        .HasMaxLength(12);
+
                     b.Property<bool>("Confirmed");
 
                     b.Property<string>("Email")
@@ -353,6 +356,8 @@ namespace TennApp.Migrations
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(30);
+
+                    b.Property<double>("Price");
 
                     b.HasKey("TourneyID");
 

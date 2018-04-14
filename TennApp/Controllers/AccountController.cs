@@ -65,7 +65,7 @@ namespace TennApp.Controllers
                 if (result.Succeeded)
                 {
                     _logger.LogInformation("User logged in.");
-                    return RedirectToLocal(returnUrl);
+                    return RedirectToAction("Dashboard", "Admin");
                 }
                 if (result.RequiresTwoFactor)
                 {
@@ -232,7 +232,7 @@ namespace TennApp.Controllers
 
                     await _signInManager.SignInAsync(user, isPersistent: false);
                     _logger.LogInformation("User created a new account with password.");
-                    return RedirectToLocal(returnUrl);
+                    return RedirectToAction("Dashboard", "Admin");
                 }
                 AddErrors(result);
             }
@@ -247,7 +247,7 @@ namespace TennApp.Controllers
         {
             await _signInManager.SignOutAsync();
             _logger.LogInformation("User logged out.");
-            return RedirectToAction(nameof(HomeController.Index), "Home");
+            return RedirectToAction("Login", "Home");
         }
 
         [HttpPost]

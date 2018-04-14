@@ -1,79 +1,123 @@
-﻿
+﻿@model BillViewModel
 @{
     ViewData["Title"] = "Payment";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <br /><br />
-<h2>Añadir pago</h2>
+<h2>Nuevo pago</h2>
 <hr />
-<form method="post" asp-action="Payment">
-    <div class="jumbotron jumbotron-fluid">
-        <div class="container">
-            <div class="row">
-                <div class="col-sm-8">
-                    <h1 class="display-4">FACTURA</h1>
-                </div>
-                <div class="col-sm-4">
-                    <input type="text" name="code" value="00-00000001" class="form-control" readonly />
-                </div>
-            </div>
-            <br />
-            <div class="row">
-                <div class="col-sm-4">
-                    <div class="form-inline">
-                        <label><b>Usuario: </b></label>
-                        <select class="form-control" id="userList" name="userList">
-                            <option value="">Albert Lorenzo</option>
-                            <option value="">Marco Paolo</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="col-sm-4">
 
-                </div>
-                <div class="col-sm-4">
-                    <div class="form-inline">
-                        <label><b>Fecha: </b></label>
-                        <input class="form-control" readonly type="text" name="todayDate" value="@DateTime.Now.ToShortDateString()" />
-                    </div>
-                </div>
-            </div>
-            <br /><br />
-            <div class="row">
-                <div class="col-sm-3"></div>
-                <div class="col-sm-6">
-                    <div class="form">
-                        <div align="center"><h3>Torneo</h3></div>
-                        <select class="form-control" id="tourneyList" name="tourneyList">
-                            <option value="">Albert Lorenzo</option>
-                            <option value="">Marco Paolo</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="col-sm-3"></div>
-            </div>
-            <br /><br /><br />
-            <div class="row">
-                <div class="col-sm-6">
-                    <h1 class="display-4">Monto: RD$<span>4,900</span></h1>
-                </div>
-                <div class="col-sm-2"></div>
-                <div class="col-sm-4">
-                    <div class="form">
-                        <div align="center"><h5>Metodo de pago</h5></div>
-                        <select class="form-control input-sm" id="paymentList" name="paymentList">
-                            <option value="">Albert Lorenzo</option>
-                            <option value="">Marco Paolo</option>
-                        </select>
-                    </div>
-                </div>
-            </div>
-
-        </div>
+    <div class="form-group-lg">
+        <label class="control-label">Torneo:</label>
+        <select id="ddl_tourneys" asp-for="TourneyID" asp-items="Model.Tourneys" class="form-control">
+            <option value="0">Please select one</option>
+        </select>
     </div>
+    <br />
+    <div class="form-group-sm">
+        <label class="control-label">Precio:</label>
+        <input id="pago_precio" class="form-control" readonly />
+    </div>
+    <br />
     <div class="row">
-        <div class="col-sm-12">
-            <button class="btn btn-primary btn-block btn-lg">Efectuar pago</button>
+        <div class="col-sm-4">
+            <div class="form-group-lg">
+                <label class="control-label">Cedula del usuario:</label>
+                <input class="form-control" id="ddl_users" oninput="ActivatePayButton()" />
+            </div>
+            <div class="form-group-sm">
+                <button id="btn_check" class="btn btn-sm btn-success" onclick="CheckUser()">check</button>
+            </div>
+        </div>
+        <div class="col-sm-4"></div>
+        <div class="col-sm-4"></div>
+    </div>
+    <br />
+    <div class="row">
+        <div class="col-sm-3">
+            <label>Nombre completo</label>
+            <input id="info_nombre" class="form-control" readonly />
+        </div>
+        <div class="col-sm-3">
+            <label>Teléfono</label>
+            <input id="info_telefono" class="form-control" readonly />
+        </div>
+        <div class="col-sm-3">
+            <label>Email</label>
+            <input id="info_email" class="form-control" readonly />
+        </div>
+        <div class="col-sm-3">
+            <label>Cuenta</label>
+            <input id="info_cuenta" class="form-control" readonly />
         </div>
     </div>
-</form>
+    <br />
+    <br />
+    <br />
+    <div class="row">
+        <div class="col-sm-4"></div>
+        <div class="col-sm-4">
+            <button id="btn_pagar" class="btn btn-primary btn-block" style="font-size:1.2rem;font-weight:600;">Registrar pago</button>
+        </div>
+        <div class="col-sm-4"></div>
+    </div>
+
+
+@section Scripts{ 
+    <script type="text/javascript">
+        $('#ddl_users').prop('disabled', true);
+        $('#btn_pagar').prop('disabled', true);
+        $('#btn_check').prop('disabled', true);
+        $('#btn_pagar').click(function () { 
+            // Make a POST ajax request to register the new payment in the database and to register
+            //    the user to the tourney it payed.
+            alert("Pago realizado!");
+        });
+        $("#ddl_tourneys").change(function () {
+            if ($(this).val() !== "1" && $(this).val() !== "0") {
+
+                var id = $(this).val();
+                $.ajax({
+                    url: '/Admin/GetTorneo',
+                    type: 'GET',
+                    data: { _id: id },
+                    cache: false,
+                    dataType: "json",
+                    success: function (result) {
+                        $.each(result, function (k, v) {
+                            //alert(k);
+                            if (k === "price") {
+                                $('#pago_precio').val(v);
+                                $('#ddl_users').prop('disabled', false);
+                            }
+                        });
+                    }
+                });
+            } else {
+                $('#pago_precio').val("");
+                $('#ddl_users').prop('disabled', true);
+            }
+        });
+        function ActivatePayButton() {
+            if ($('#ddl_users').val().length > 0) {
+                $('#btn_check').prop('disabled', false);
+            } else{
+                $('#btn_check').prop('disabled', true);
+            }
+        }
+        function CheckUser() {
+
+            //Verify if user with cedula === ddl_users exists and retrieve with ajax.
+            // If it does, fill the inputs: FullName, Phone, Email, Account. Then activate the btn_pagar button.
+
+            if (true) {
+                $('#btn_pagar').prop('disabled', false);
+
+            } else {
+
+                $('#btn_pagar').prop('disabled', true);
+            }
+
+        }
+    </script>
+}

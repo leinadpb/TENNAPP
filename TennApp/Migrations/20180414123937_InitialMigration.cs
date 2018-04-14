@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace TennApp.Migrations
 {
-    public partial class InitTENNAPP : Migration
+    public partial class InitialMigration : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -67,8 +67,8 @@ namespace TennApp.Migrations
                 {
                     ReportTypeID = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    Name = table.Column<string>(maxLength: 45, nullable: false),
-                    ReferenceCode = table.Column<string>(maxLength: 5, nullable: false)
+                    Name = table.Column<string>(maxLength: 120, nullable: false),
+                    ReferenceCode = table.Column<string>(maxLength: 10, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -243,13 +243,14 @@ namespace TennApp.Migrations
                     Age = table.Column<int>(nullable: false),
                     Biography = table.Column<string>(maxLength: 80, nullable: true),
                     CategoryID = table.Column<int>(nullable: false),
+                    Cedula = table.Column<string>(maxLength: 12, nullable: true),
                     Confirmed = table.Column<bool>(nullable: false),
                     Email = table.Column<string>(maxLength: 70, nullable: true),
                     FirstName = table.Column<string>(maxLength: 30, nullable: false),
                     LastName = table.Column<string>(maxLength: 30, nullable: false),
                     Nickname = table.Column<string>(maxLength: 30, nullable: true),
                     Payment = table.Column<bool>(nullable: false),
-                    Phone = table.Column<string>(maxLength: 13, nullable: true),
+                    Phone = table.Column<string>(maxLength: 22, nullable: true),
                     SecondLastName = table.Column<string>(maxLength: 30, nullable: true),
                     SecondName = table.Column<string>(maxLength: 30, nullable: true),
                     TShirtID = table.Column<int>(nullable: false),

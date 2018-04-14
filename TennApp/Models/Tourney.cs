@@ -24,6 +24,9 @@ namespace TennApp.Models
         [Required]
         public String FechaFin { get; set; }
 
+        [Required]
+        public double Price { get; set; }
+
         //Navigation properties
         public List<Person> Persons { get; set; }
 

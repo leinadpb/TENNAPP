@@ -61,7 +61,7 @@ namespace TennApp
             {
                 routes.MapRoute(
                     name: "default",
-                    template: "{controller=Admin}/{action=Dashboard}/{id?}");
+                    template: "{controller=Home}/{action=Login}/{id?}");
             });
         }
     }

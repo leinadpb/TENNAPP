@@ -54,7 +54,7 @@ namespace TennApp.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("TourneyID,Name,Description,FechaInicio,FechaFin")] Tourney tourney)
+        public async Task<IActionResult> Create([Bind("TourneyID,Name,Description,FechaInicio,FechaFin,Price")] Tourney tourney)
         {
             if (ModelState.IsValid)
             {
@@ -86,7 +86,7 @@ namespace TennApp.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("TourneyID,Name,Description,FechaInicio,FechaFin")] Tourney tourney)
+        public async Task<IActionResult> Edit(int id, [Bind("TourneyID,Name,Description,FechaInicio,FechaFin,Price")] Tourney tourney)
         {
             if (id != tourney.TourneyID)
             {

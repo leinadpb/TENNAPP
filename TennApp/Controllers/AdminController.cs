@@ -10,9 +10,11 @@ using TennApp.Data;
 using TennApp.Models;
 using TennApp.ViewModels;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.AspNetCore.Authorization;
 
 namespace TennApp.Controllers
 {
+    [Authorize]
     public class AdminController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -25,6 +27,7 @@ namespace TennApp.Controllers
             _context = ctx;
         }
 
+        [Authorize]
         public IActionResult Dashboard()
         {
             _dashboardVM = new DashboardViewModel();
@@ -173,9 +176,9 @@ namespace TennApp.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Payment()
+        public IActionResult Payment()
         {
-            var selectUsers = new SelectList(_context.Persons, "PersonID", "Name");
+            var selectUsers = new SelectList(_context.Persons, "PersonID", "FullName");
             var selectTourneys = new SelectList(_context.Tourneys, "TourneyID", "Name");
             var selectPayment = new SelectList(_context.PaymentMethods, "PaymentMethodID", "Name");
             return View(new BillViewModel { Users = selectUsers,
@@ -184,12 +187,24 @@ namespace TennApp.Controllers
             });
         }
 
+        public void NuevoPago(Person person)
+        {
+
+        }
+
         [HttpPost]
         public async Task<IActionResult> Payment(string asd)
         {
             return View();
         }
 
+        [HttpGet]
+        public JsonResult GetTorneo(string _id)
+        {
+            int id = Int32.Parse(_id);
+            Tourney torneo = _context.Tourneys.Where(t => t.TourneyID == id).FirstOrDefault();
+            return Json(torneo);
+        }
 
         public IActionResult Error()
         {

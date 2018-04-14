@@ -25,6 +25,10 @@ namespace TennApp.Models
         [MaxLength(30, ErrorMessage = "Second last name too long.")]
         public String SecondLastName { get; set; }
 
+        public String FullName {
+            get; set;
+        }
+
         [MaxLength(30, ErrorMessage = "The nickname is too long.")]
         public String Nickname { get; set; }
 
@@ -48,6 +52,9 @@ namespace TennApp.Models
 
         [MaxLength(80, ErrorMessage = "Biography is too long.")]
         public String Biography { get; set; }
+
+        [MaxLength(12, ErrorMessage = "Identification too long.")]
+        public String Cedula { get; set; }
 
         //Navigation properties
         public int TShirtID { get; set; }

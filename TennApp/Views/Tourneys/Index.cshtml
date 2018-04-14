@@ -4,24 +4,16 @@
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<br />
-<h2>Torneos</h2>
-<br />
-<div class="card text-center">
-    <div class="card-header">
-        <h3>Nombre del torneo</h3>
-    </div>
-    <div class="card-body">
-        <h5 class="card-title">Poner listado de personas que asistiran a este torneo.</h5>
-    </div>
-</div>
-<br />
+<br /><br />
+<h2>Todos los torneos</h2>
+<hr />
 <p>
     <a asp-action="Create">Create New</a>
 </p>
-<table class="table">
-    <thead>
-        <tr>
+<div class="table-responsive">
+    <table class="table table-bordered">
+        <thead>
+            <tr>
                 <th>
                     @Html.DisplayNameFor(model => model.Name)
                 </th>
@@ -34,30 +26,38 @@
                 <th>
                     @Html.DisplayNameFor(model => model.FechaFin)
                 </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Description)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.FechaInicio)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.FechaFin)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.TourneyID">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.TourneyID">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.TourneyID">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+                <th>
+                    @Html.DisplayNameFor(model => model.Price)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Description)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.FechaInicio)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.FechaFin)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Price)
+                    </td>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@item.TourneyID">Edit</a> |
+                        <a asp-action="Details" asp-route-id="@item.TourneyID">Details</a> |
+                        <a asp-action="Delete" asp-route-id="@item.TourneyID">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

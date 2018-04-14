@@ -52,7 +52,7 @@ namespace TennApp.Controllers
         {
             ViewData["CategoryID"] = new SelectList(_context.Categories, "CategoryID", "Name");
             ViewData["TShirtID"] = new SelectList(_context.TShirts, "TShirtID", "Size");
-            ViewData["TourneyID"] = new SelectList(_context.Tourneys, "TourneyID", "Name");
+            ViewData["TourneyID"] = new SelectList(_context.Tourneys, "TourneyID", "FechaFin");
             return View();
         }
 
@@ -61,7 +61,7 @@ namespace TennApp.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("PersonID,FirstName,SecondName,LastName,SecondLastName,Nickname,Phone,Email,Age,Confirmed,Payment,Account,Biography,TShirtID,CategoryID,TourneyID")] Person person)
+        public async Task<IActionResult> Create([Bind("PersonID,FirstName,SecondName,LastName,SecondLastName,Nickname,Phone,Email,Age,Confirmed,Payment,Account,Biography,Cedula,TShirtID,CategoryID,TourneyID")] Person person)
         {
             if (ModelState.IsValid)
             {
@@ -71,7 +71,7 @@ namespace TennApp.Controllers
             }
             ViewData["CategoryID"] = new SelectList(_context.Categories, "CategoryID", "Name", person.CategoryID);
             ViewData["TShirtID"] = new SelectList(_context.TShirts, "TShirtID", "Size", person.TShirtID);
-            ViewData["TourneyID"] = new SelectList(_context.Tourneys, "TourneyID", "Name", person.TourneyID);
+            ViewData["TourneyID"] = new SelectList(_context.Tourneys, "TourneyID", "FechaFin", person.TourneyID);
             return View(person);
         }
 
@@ -90,7 +90,7 @@ namespace TennApp.Controllers
             }
             ViewData["CategoryID"] = new SelectList(_context.Categories, "CategoryID", "Name", person.CategoryID);
             ViewData["TShirtID"] = new SelectList(_context.TShirts, "TShirtID", "Size", person.TShirtID);
-            ViewData["TourneyID"] = new SelectList(_context.Tourneys, "TourneyID", "FechaFin", person.TourneyID);
+            ViewData["TourneyID"] = new SelectList(_context.Tourneys, "TourneyID", "Name", person.TourneyID);
             return View(person);
         }
 
@@ -99,7 +99,7 @@ namespace TennApp.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("PersonID,FirstName,SecondName,LastName,SecondLastName,Nickname,Phone,Email,Age,Confirmed,Payment,Account,Biography,TShirtID,CategoryID,TourneyID")] Person person)
+        public async Task<IActionResult> Edit(int id, [Bind("PersonID,FirstName,SecondName,LastName,SecondLastName,Nickname,Phone,Email,Age,Confirmed,Payment,Account,Biography,Cedula,TShirtID,CategoryID,TourneyID")] Person person)
         {
             if (id != person.PersonID)
             {

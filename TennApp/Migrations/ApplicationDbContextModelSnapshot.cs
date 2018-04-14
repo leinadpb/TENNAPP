@@ -210,6 +210,8 @@ namespace TennApp.Migrations
                     b.Property<int>("CategoryID")
                         .ValueGeneratedOnAdd();
 
+                    b.Property<int>("CategoryTypeID");
+
                     b.Property<string>("Description")
                         .HasMaxLength(80);
 
@@ -223,6 +225,8 @@ namespace TennApp.Migrations
 
                     b.HasKey("CategoryID");
 
+                    b.HasIndex("CategoryTypeID");
+
                     b.ToTable("Categories");
                 });
 
@@ -231,15 +235,10 @@ namespace TennApp.Migrations
                     b.Property<int>("CategoryTypeID")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<int>("CategoryID");
-
                     b.Property<string>("Name")
                         .HasMaxLength(5);
 
                     b.HasKey("CategoryTypeID");
-
-                    b.HasIndex("CategoryID")
-                        .IsUnique();
 
                     b.ToTable("CategoryTypes");
                 });
@@ -276,6 +275,9 @@ namespace TennApp.Migrations
 
                     b.Property<int>("CategoryID");
 
+                    b.Property<string>("Cedula")
+                        .HasMaxLength(12);
+
                     b.Property<bool>("Confirmed");
 
                     b.Property<string>("Email")
@@ -284,6 +286,8 @@ namespace TennApp.Migrations
                     b.Property<string>("FirstName")
                         .IsRequired()
                         .HasMaxLength(30);
+
+                    b.Property<string>("FullName");
 
                     b.Property<string>("LastName")
                         .IsRequired()
@@ -295,7 +299,7 @@ namespace TennApp.Migrations
                     b.Property<bool>("Payment");
 
                     b.Property<string>("Phone")
-                        .HasMaxLength(13);
+                        .HasMaxLength(22);
 
                     b.Property<string>("SecondLastName")
                         .HasMaxLength(30);
@@ -325,11 +329,11 @@ namespace TennApp.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasMaxLength(45);
+                        .HasMaxLength(120);
 
                     b.Property<string>("ReferenceCode")
                         .IsRequired()
-                        .HasMaxLength(5);
+                        .HasMaxLength(10);
 
                     b.HasKey("ReportTypeID");
 
@@ -353,6 +357,8 @@ namespace TennApp.Migrations
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(30);
+
+                    b.Property<double>("Price");
 
                     b.HasKey("TourneyID");
 
@@ -430,11 +436,11 @@ namespace TennApp.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
-            modelBuilder.Entity("TennApp.Models.CategoryType", b =>
+            modelBuilder.Entity("TennApp.Models.Category", b =>
                 {
-                    b.HasOne("TennApp.Models.Category", "Category")
-                        .WithOne("Type")
-                        .HasForeignKey("TennApp.Models.CategoryType", "CategoryID")
+                    b.HasOne("TennApp.Models.CategoryType", "CategoryType")
+                        .WithMany("Categories")
+                        .HasForeignKey("CategoryTypeID")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 

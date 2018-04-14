@@ -11,8 +11,8 @@ using TennApp.Data;
 namespace TennApp.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20180407152020_PErsonModelChanged")]
-    partial class PErsonModelChanged
+    [Migration("20180414154247_FullNameChanged")]
+    partial class FullNameChanged
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -276,6 +276,9 @@ namespace TennApp.Migrations
 
                     b.Property<int>("CategoryID");
 
+                    b.Property<string>("Cedula")
+                        .HasMaxLength(12);
+
                     b.Property<bool>("Confirmed");
 
                     b.Property<string>("Email")
@@ -284,6 +287,8 @@ namespace TennApp.Migrations
                     b.Property<string>("FirstName")
                         .IsRequired()
                         .HasMaxLength(30);
+
+                    b.Property<string>("FullName");
 
                     b.Property<string>("LastName")
                         .IsRequired()
@@ -325,11 +330,11 @@ namespace TennApp.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasMaxLength(45);
+                        .HasMaxLength(120);
 
                     b.Property<string>("ReferenceCode")
                         .IsRequired()
-                        .HasMaxLength(5);
+                        .HasMaxLength(10);
 
                     b.HasKey("ReportTypeID");
 
@@ -353,6 +358,8 @@ namespace TennApp.Migrations
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(30);
+
+                    b.Property<double>("Price");
 
                     b.HasKey("TourneyID");
 
