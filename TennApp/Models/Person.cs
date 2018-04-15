@@ -56,6 +56,8 @@ namespace TennApp.Models
         [MaxLength(12, ErrorMessage = "Identification too long.")]
         public String Cedula { get; set; }
 
+        public String Sexo { get; set; }
+
         //Navigation properties
         public int TShirtID { get; set; }
         public TShirt TShirt { get; set; }

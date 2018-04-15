@@ -11,8 +11,8 @@ using TennApp.Data;
 namespace TennApp.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20180415074849_OneToManyBillPaymentmethod")]
-    partial class OneToManyBillPaymentmethod
+    [Migration("20180415181918_SexToPeople")]
+    partial class SexToPeople
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -304,6 +304,8 @@ namespace TennApp.Migrations
 
                     b.Property<string>("SecondName")
                         .HasMaxLength(30);
+
+                    b.Property<string>("Sexo");
 
                     b.Property<int>("TShirtID");
 

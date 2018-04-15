@@ -52,7 +52,7 @@ namespace TennApp.Controllers
         {
             ViewData["CategoryID"] = new SelectList(_context.Categories, "CategoryID", "Name");
             ViewData["TShirtID"] = new SelectList(_context.TShirts, "TShirtID", "Size");
-            ViewData["TourneyID"] = new SelectList(_context.Tourneys, "TourneyID", "FechaFin");
+            ViewData["TourneyID"] = new SelectList(_context.Tourneys, "TourneyID", "Name");
             return View();
         }
 
@@ -61,11 +61,12 @@ namespace TennApp.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("PersonID,FirstName,SecondName,LastName,SecondLastName,Nickname,Phone,Email,Age,Confirmed,Payment,Account,Biography,Cedula,TShirtID,CategoryID,TourneyID")] Person person)
+        public async Task<IActionResult> Create([Bind("PersonID,FirstName,SecondName,LastName,SecondLastName,Nickname,Phone,Email,Age,Confirmed,Payment,Account,Biography,Cedula,TShirtID,CategoryID,TourneyID")] Person person, string user_sex)
         {
             if (ModelState.IsValid)
             {
                 person.FullName = person.FirstName + " " + person.LastName; // Add fullname to person
+                person.Sexo = user_sex;
                 _context.Add(person);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));

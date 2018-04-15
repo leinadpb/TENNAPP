@@ -304,6 +304,8 @@ namespace TennApp.Migrations
                     b.Property<string>("SecondName")
                         .HasMaxLength(30);
 
+                    b.Property<string>("Sexo");
+
                     b.Property<int>("TShirtID");
 
                     b.Property<int>("TourneyID");
