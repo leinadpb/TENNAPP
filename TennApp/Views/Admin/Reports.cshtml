@@ -10,7 +10,7 @@
         <div class="col-sm-4"></div>
         <div class="col-sm-4">
             <select class="form-control form-control-sm" name="reportType">
-                @foreach(var r in Model.Reports)
+                @foreach (var r in Model.Reports)
                 {
                     if (r.ReferenceCode.Equals("TENN001"))
                     {
@@ -36,22 +36,24 @@
     </div>
 </form>
 <br />
-@if(Model.GeneralReport != null)
+@if (Model.GeneralReport != null)
 {
-    <br />
-    <div align="center"><h1 class="display-4">Reporte General</h1></div>
-    <div align="center">
-        <p class="lead">
-            Todos los usuarios agrupados por categoría.
-        </p>
-    </div>
-    <br />
-    @foreach(var item in Model.GeneralReport)
+    if (Model.GeneralReport.Count > 0)
     {
-        <div><h4>@item.Category.Name</h4></div>
-        
-        <div class="table-responsive">
-            <table class="table table-bordered table-hover table-striped">
+        <br />
+        <div align="center"><h1 class="display-4">Reporte General</h1></div>
+        <div align="center">
+            <p class="lead">
+                Todos los usuarios agrupados por categoría.
+            </p>
+        </div>
+        <br />
+        @foreach (var item in Model.GeneralReport)
+        {
+            <div><h4>@item.Category.Name</h4></div>
+
+            <div class="table-responsive">
+                <table class="table table-bordered table-hover table-striped">
                     <tr>
                         <th>
                             Nombre
@@ -85,7 +87,66 @@
                         </tr>
                     }
                 </table>
+            </div>
+        }
+
+    }
+
+}
+@if (Model.PersonsByTourney != null)
+{
+    if (Model.PersonsByTourney.Count > 0)
+    {
+        <br />
+        <div align="center"><h1 class="display-4">Personas en torneos</h1></div>
+        <div align="center">
+            <p class="lead">
+                Todas las personas agrupadas por torneos a los que asistirán.
+            </p>
         </div>
+        <br />
+        @foreach (var item in Model.PersonsByTourney)
+        {
+            <div><h4>@item.Tourney.Name</h4></div>
+
+            <div class="table-responsive">
+                <table class="table table-bordered table-hover table-striped">
+                    <tr>
+                        <th>
+                            Nombre
+                        </th>
+                        <th>
+                            Teléfono
+                        </th>
+                        <th>
+                            Email
+                        </th>
+                        <th>
+                            Edad
+                        </th>
+                        <td>
+                            Cedula
+                        </td>
+                    </tr>
+                    @foreach (var p in item.Persons)
+                    {
+                        String fullName = "";
+                        if (p.FirstName != null) { fullName += p.FirstName; }
+                        if (p.SecondName != null) { fullName += " " + p.SecondName; }
+                        if (p.LastName != null) { fullName += " " + p.LastName; }
+                        if (p.SecondLastName != null) { fullName += " " + p.SecondLastName; }
+                        <tr>
+                            <td>@fullName</td>
+                            <td>@p.Phone</td>
+                            <td>@p.Email</td>
+                            <td>@p.Age</td>
+                            <td>@p.Cedula</td>
+                        </tr>
+                    }
+                </table>
+            </div>
+        }
+
     }
 
 }

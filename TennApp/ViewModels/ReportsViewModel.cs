@@ -9,5 +9,6 @@ namespace TennApp.ViewModels
     {
         public List<ReportType> Reports { get; set; }
         public List<PersonsByCategory> GeneralReport { get; set; }
+        public List<PersonsByTourney> PersonsByTourney { get; set; }
     }
 }

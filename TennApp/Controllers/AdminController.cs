@@ -127,7 +127,12 @@ namespace TennApp.Controllers
         [HttpPost]
         public async Task<IActionResult> Reports(String reportType)
         {
+            //Reports definitions
             List<PersonsByCategory> dataGeneralReport = new List<PersonsByCategory>();
+            List<PersonsByTourney> PersonsByTourney_Report = new List<PersonsByTourney>();
+
+
+            //Choose the report type
             if (reportType.Equals("TENN001")) //Elaborar un reporte general
             {
                 /**
@@ -167,8 +172,31 @@ namespace TennApp.Controllers
                 }
                 
             }
+            else if (reportType.Equals("TENN002"))
+            {
+                var query = _context.Tourneys
+                    .Include(t => t.Persons);
+                List<Person> tempPerson;
+                PersonsByTourney tmp;
+                foreach(var report in await query.ToListAsync())
+                {
+                    tmp = new PersonsByTourney();
+                    tmp.Tourney = report;
+                    tempPerson = new List<Person>();
+                    foreach(var person in report.Persons)
+                    {
+                        tempPerson.Add(person);
+                    }
+                    tmp.Persons = tempPerson;
+                    PersonsByTourney_Report.Add(tmp);
+                }
+            }
             var availableReports = await _context.ReportTypes.ToListAsync();
-            return View(new ReportsViewModel { GeneralReport = dataGeneralReport, Reports = availableReports });
+            return View(new ReportsViewModel {
+                GeneralReport = dataGeneralReport,
+                Reports = availableReports,
+                PersonsByTourney = PersonsByTourney_Report
+            });
         }
         public IActionResult Bills()
         {
@@ -187,9 +215,16 @@ namespace TennApp.Controllers
             });
         }
 
-        public void NuevoPago(Person person)
+        [HttpPost]
+        public IActionResult RegisterPayment(String user_cedula, String tourney_id)
         {
-
+            var user = _context.Persons.Where(p => p.Cedula.Equals(user_cedula)).FirstOrDefault();
+            var tourney = _context.Tourneys.Where(t => t.TourneyID == Int32.Parse(tourney_id)).FirstOrDefault();
+            user.Payment = true;
+            user.TourneyID = Int32.Parse(tourney_id);
+            user.Tourney = tourney;
+            _context.SaveChanges();
+            return RedirectToAction("Payment");
         }
         [HttpGet]
         public JsonResult GetUser(string user_cedula)

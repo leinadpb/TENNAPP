@@ -71,7 +71,31 @@
         $('#btn_pagar').click(function () { 
             // Make a POST ajax request to register the new payment in the database and to register
             //    the user to the tourney it payed.
+
+            $.ajax({
+                url: '/Admin/RegisterPayment',
+                cache: false,
+                type: "POST",
+                dataType: 'json',
+                data: {
+                    user_cedula: $('#ddl_users').val(),
+                    tourney_id: $('#ddl_tourneys').val()
+                },
+                success: function (result) { 
+
+                },
+                complete: function (data) {
+                    cleanForm();
+
+                },
+                error: function (request, status, error) {
+
+
+                }
+            });
+
             alert("Pago realizado!");
+
         });
         $("#ddl_tourneys").change(function () {
             if ($(this).val() !== "1" && $(this).val() !== "0") {
@@ -157,6 +181,15 @@
                 alert("Cédula inválida: " + error);
             }
 
+        }
+        function cleanForm() {
+            $('#info_nombre').val("");
+            $('#info_telefono').val("");
+            $('#info_email').val("");
+            $('#info_cuenta').val("");
+            $('#ddl_users').val("");
+            $('#ddl_tourneys').val("0");
+            $('#pago_precio').val("");
         }
     </script>
 }
