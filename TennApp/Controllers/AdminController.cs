@@ -35,7 +35,7 @@ namespace TennApp.Controllers
             int TotalCategories = _context.Categories.ToList().Count();
             int TotalYoungUsers = _context.Persons.Where(p => p.Age != 0 && p.Age >= 12 && p.Age <= 19).ToList().Count();
             int TotalAdultUsers = _context.Persons.Where(p => p.Age != 0 && p.Age >= 20 && p.Age <= 39).ToList().Count();
-            int TotalOldUsers = _context.Persons.Where(p => p.Age != 0 && p.Age > 40 && p.Age <= 120).ToList().Count();
+            int TotalOldUsers = _context.Persons.Where(p => p.Age != 0 && p.Age >= 40 && p.Age <= 120).ToList().Count();
             _dashboardVM.TotalUsers = TotalUsers;
             _dashboardVM.TotalCategories = TotalCategories;
             _dashboardVM.YoungUsers = TotalYoungUsers;
@@ -190,6 +190,12 @@ namespace TennApp.Controllers
         public void NuevoPago(Person person)
         {
 
+        }
+        [HttpGet]
+        public JsonResult GetUser(string user_cedula)
+        {
+            var user = _context.Persons.Where(p => p.Cedula.Equals(user_cedula)).FirstOrDefault();
+            return Json(user);
         }
 
         [HttpPost]

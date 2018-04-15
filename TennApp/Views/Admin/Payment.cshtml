@@ -109,13 +109,52 @@
 
             //Verify if user with cedula === ddl_users exists and retrieve with ajax.
             // If it does, fill the inputs: FullName, Phone, Email, Account. Then activate the btn_pagar button.
+            let user_cedula = $('#ddl_users').val();
+            
+            try {
+                let user_cedula_longType = parseInt(user_cedula); //Test if the cedula field has only numbers...
+                $.ajax({
+                    url: '/Admin/GetUser',
+                    type: 'GET',
+                    dataType: "json",
+                    cache: false,
+                    data: { user_cedula: user_cedula },
+                    success: function (result) {
+                        
+                        
+                    },
+                    error: function (request, status, error) {
+                        //alert(request.responseText);
+                        $('#btn_pagar').prop('disabled', true);
+                        $('#info_nombre').val("");
+                        $('#info_telefono').val("");
+                        $('#info_email').val("");
+                        $('#info_cuenta').val("");
+                   
+                    },
+                    complete: function (data) {
+                        if (data.responseJSON !== null) {
+                            $('#btn_pagar').prop('disabled', false);
+                            $.each(data.responseJSON, function (k, v) {
+                                //alert(k);
+                                if (k === "fullName")
+                                    $('#info_nombre').val(v);
+                                if (k === "phone")
+                                    $('#info_telefono').val(v);
+                                if (k === "email")
+                                    $('#info_email').val(v);
+                                if (k === "account")
+                                    $('#info_cuenta').val(v);
+                            });
+                        } else {
+                            $('#btn_pagar').prop('disabled', true);
+                        }
+                    }
+                });
 
-            if (true) {
-                $('#btn_pagar').prop('disabled', false);
+            } catch (error) {
 
-            } else {
-
-                $('#btn_pagar').prop('disabled', true);
+                alert("Cédula inválida: " + error);
             }
 
         }

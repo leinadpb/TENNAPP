@@ -65,13 +65,14 @@ namespace TennApp.Controllers
         {
             if (ModelState.IsValid)
             {
+                person.FullName = person.FirstName + " " + person.LastName; // Add fullname to person
                 _context.Add(person);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
             ViewData["CategoryID"] = new SelectList(_context.Categories, "CategoryID", "Name", person.CategoryID);
             ViewData["TShirtID"] = new SelectList(_context.TShirts, "TShirtID", "Size", person.TShirtID);
-            ViewData["TourneyID"] = new SelectList(_context.Tourneys, "TourneyID", "FechaFin", person.TourneyID);
+            ViewData["TourneyID"] = new SelectList(_context.Tourneys, "TourneyID", "Name", person.TourneyID);
             return View(person);
         }
 
