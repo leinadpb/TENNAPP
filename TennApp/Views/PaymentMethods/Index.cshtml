@@ -4,9 +4,8 @@
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
+<br />
 <h2>Métodos de pago</h2>
-
 <p>
     <a asp-action="Create">Create New</a>
 </p>
@@ -17,9 +16,6 @@
                 <th>
                     @Html.DisplayNameFor(model => model.Name)
                 </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Bill)
-                </th>
                 <th></th>
             </tr>
         </thead>
@@ -29,9 +25,6 @@
                 <tr>
                     <td>
                         @Html.DisplayFor(modelItem => item.Name)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Bill.Code)
                     </td>
                     <td>
                         <a asp-action="Edit" asp-route-id="@item.PaymentMethodID">Edit</a> |

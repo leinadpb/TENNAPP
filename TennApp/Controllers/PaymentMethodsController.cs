@@ -22,8 +22,7 @@ namespace TennApp.Controllers
         // GET: PaymentMethods
         public async Task<IActionResult> Index()
         {
-            var applicationDbContext = _context.PaymentMethods.Include(p => p.Bill);
-            return View(await applicationDbContext.ToListAsync());
+            return View(await _context.PaymentMethods.ToListAsync());
         }
 
         // GET: PaymentMethods/Details/5
@@ -35,7 +34,6 @@ namespace TennApp.Controllers
             }
 
             var paymentMethod = await _context.PaymentMethods
-                .Include(p => p.Bill)
                 .SingleOrDefaultAsync(m => m.PaymentMethodID == id);
             if (paymentMethod == null)
             {
@@ -48,7 +46,6 @@ namespace TennApp.Controllers
         // GET: PaymentMethods/Create
         public IActionResult Create()
         {
-            ViewData["BillID"] = new SelectList(_context.Bills, "BillID", "Code");
             return View();
         }
 
@@ -57,7 +54,7 @@ namespace TennApp.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("PaymentMethodID,Name,BillID")] PaymentMethod paymentMethod)
+        public async Task<IActionResult> Create([Bind("PaymentMethodID,Name")] PaymentMethod paymentMethod)
         {
             if (ModelState.IsValid)
             {
@@ -65,7 +62,6 @@ namespace TennApp.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["BillID"] = new SelectList(_context.Bills, "BillID", "Code", paymentMethod.BillID);
             return View(paymentMethod);
         }
 
@@ -82,7 +78,6 @@ namespace TennApp.Controllers
             {
                 return NotFound();
             }
-            ViewData["BillID"] = new SelectList(_context.Bills, "BillID", "Code", paymentMethod.BillID);
             return View(paymentMethod);
         }
 
@@ -91,7 +86,7 @@ namespace TennApp.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("PaymentMethodID,Name,BillID")] PaymentMethod paymentMethod)
+        public async Task<IActionResult> Edit(int id, [Bind("PaymentMethodID,Name")] PaymentMethod paymentMethod)
         {
             if (id != paymentMethod.PaymentMethodID)
             {
@@ -118,7 +113,6 @@ namespace TennApp.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["BillID"] = new SelectList(_context.Bills, "BillID", "Code", paymentMethod.BillID);
             return View(paymentMethod);
         }
 
@@ -131,7 +125,6 @@ namespace TennApp.Controllers
             }
 
             var paymentMethod = await _context.PaymentMethods
-                .Include(p => p.Bill)
                 .SingleOrDefaultAsync(m => m.PaymentMethodID == id);
             if (paymentMethod == null)
             {

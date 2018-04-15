@@ -14,8 +14,7 @@ namespace TennApp.Models
         public String Name { get; set; }
 
         //Navigation properties
-        public int BillID { get; set; }
-        public Bill Bill { get; set; }
+        public List<Bill> Bills { get; set; }
 
     }
 }

@@ -200,6 +200,8 @@ namespace TennApp.Migrations
 
                     b.HasIndex("CategoryID");
 
+                    b.HasIndex("PaymentMethodID");
+
                     b.HasIndex("PersonID");
 
                     b.ToTable("Bills");
@@ -248,14 +250,9 @@ namespace TennApp.Migrations
                     b.Property<int>("PaymentMethodID")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<int>("BillID");
-
                     b.Property<string>("Name");
 
                     b.HasKey("PaymentMethodID");
-
-                    b.HasIndex("BillID")
-                        .IsUnique();
 
                     b.ToTable("PaymentMethods");
                 });
@@ -430,6 +427,11 @@ namespace TennApp.Migrations
                         .WithMany("Bills")
                         .HasForeignKey("CategoryID");
 
+                    b.HasOne("TennApp.Models.PaymentMethod", "PaymentMethod")
+                        .WithMany("Bills")
+                        .HasForeignKey("PaymentMethodID")
+                        .OnDelete(DeleteBehavior.Cascade);
+
                     b.HasOne("TennApp.Models.Person", "Person")
                         .WithMany("Bills")
                         .HasForeignKey("PersonID")
@@ -441,14 +443,6 @@ namespace TennApp.Migrations
                     b.HasOne("TennApp.Models.CategoryType", "CategoryType")
                         .WithMany("Categories")
                         .HasForeignKey("CategoryTypeID")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("TennApp.Models.PaymentMethod", b =>
-                {
-                    b.HasOne("TennApp.Models.Bill", "Bill")
-                        .WithOne("PaymentMethod")
-                        .HasForeignKey("TennApp.Models.PaymentMethod", "BillID")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 

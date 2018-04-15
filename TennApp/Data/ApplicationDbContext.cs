@@ -27,13 +27,6 @@ namespace TennApp.Data
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
-
-
-            //Explicity define on-to-one relation between Bill y PaymentMethod
-            builder.Entity<Bill>()
-                .HasOne(b => b.PaymentMethod)
-                .WithOne(pm => pm.Bill)
-                .HasForeignKey<PaymentMethod>(pm => pm.BillID);
         }
     }
 }
