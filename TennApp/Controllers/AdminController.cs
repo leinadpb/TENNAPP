@@ -36,11 +36,15 @@ namespace TennApp.Controllers
             int TotalYoungUsers = _context.Persons.Where(p => p.Age != 0 && p.Age >= 12 && p.Age <= 19).ToList().Count();
             int TotalAdultUsers = _context.Persons.Where(p => p.Age != 0 && p.Age >= 20 && p.Age <= 39).ToList().Count();
             int TotalOldUsers = _context.Persons.Where(p => p.Age != 0 && p.Age >= 40 && p.Age <= 120).ToList().Count();
+            int TotalMen = _context.Persons.Where(p => p.Sexo.Equals("M")).ToList().Count;
+            int TotalWoman = _context.Persons.Where(p => p.Sexo.Equals("F")).ToList().Count;
             _dashboardVM.TotalUsers = TotalUsers;
             _dashboardVM.TotalCategories = TotalCategories;
             _dashboardVM.YoungUsers = TotalYoungUsers;
             _dashboardVM.AdultUsers = TotalAdultUsers;
             _dashboardVM.OldUsers = TotalOldUsers;
+            _dashboardVM.TotalMen = TotalMen;
+            _dashboardVM.TotalWomen = TotalWoman;
             return View(_dashboardVM);
         }
 
@@ -216,13 +220,26 @@ namespace TennApp.Controllers
         }
 
         [HttpPost]
-        public IActionResult RegisterPayment(String user_cedula, String tourney_id)
+        public IActionResult RegisterPayment(String user_cedula, String tourney_id, String payment_id, String bill_mount)
         {
             var user = _context.Persons.Where(p => p.Cedula.Equals(user_cedula)).FirstOrDefault();
             var tourney = _context.Tourneys.Where(t => t.TourneyID == Int32.Parse(tourney_id)).FirstOrDefault();
+            var paymentMethod = _context.PaymentMethods.Where(pm => pm.PaymentMethodID == Int32.Parse(payment_id)).FirstOrDefault();
             user.Payment = true;
             user.TourneyID = Int32.Parse(tourney_id);
             user.Tourney = tourney;
+            _context.SaveChanges();
+            //Create a new Bill
+            var bills = _context.Bills.ToList();
+            Bill bill = new Bill() {
+                Mount = Double.Parse(bill_mount),
+                Code = "TENN000" + (bills.Count + 1).ToString(),
+                Person = user,
+                PersonID = user.PersonID,
+                PaymentMethodID = paymentMethod.PaymentMethodID,
+                PaymentMethod = paymentMethod
+            };
+            _context.Bills.Add(bill);
             _context.SaveChanges();
             return RedirectToAction("Payment");
         }

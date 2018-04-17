@@ -53,6 +53,16 @@
             </div>
         </div>
     </div>
+    <br /><br />
+    <div name="@Model.TotalMen" id="TotalMales"></div>
+    <div id="TotalFemales" name="@Model.TotalWomen"></div>
+    <div class="row bg-graphicSet">
+        <div class="col-md-2"></div>
+        <div class="col-md-8">
+            <canvas id="bar-chart" style="width:100%;height:auto;text-align:center;"></canvas>
+        </div>
+        <div class="col-md-2"></div>
+    </div>
 </div>
 
 @section Scripts{
@@ -65,6 +75,8 @@
             let adultUsersCount = parseInt($('#TotalAdultUsers').attr('name'));
             let oldUsersCount = parseInt($('#TotalOldUsers').attr('name'));
             let UsersCount = parseInt($('#TotalUsers').attr('name'));
+            let TotalMen = parseInt($('#TotalMales').attr('name'));
+            let TotalWomen = parseInt($('#TotalFemales').attr('name'));
 
             var data_young = {
                 datasets: [{
@@ -165,7 +177,31 @@
                     }
                 }
             });
-
+            var men_vs_women = new Chart(document.getElementById("bar-chart"), {
+                type: 'bar',
+                data: {
+                    labels: ["Male", "Female"],
+                    datasets: [
+                        {
+                            scale:10,
+                            label: "Personas",
+                            backgroundColor: ["#3e95cd", "#8e5ea2"],
+                            data: [TotalMen, TotalWomen],
+                            scaleOverride: true,
+                            scaleSteps: 9,
+                            scaleStartValue: 0,
+                            scaleStepWidth: 1,
+                        }
+                    ]
+                },
+                options: {
+                    legend: { display: true },
+                    title: {
+                        display: true,
+                        text: 'Comparación de hombres y mujeres.'
+                    }
+                }
+            });
         };
     </script>
 }

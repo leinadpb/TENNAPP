@@ -29,7 +29,12 @@
                 <button id="btn_check" class="btn btn-sm btn-success" onclick="CheckUser()">check</button>
             </div>
         </div>
-        <div class="col-sm-4"></div>
+        <div class="col-sm-4">
+            <div class="form-group-lg">
+                <label class="control-label">Método de pago</label>
+                <select class="form-control" id="ddl_payments" asp-for="PaymentMethodID" asp-items="Model.Payments"></select>
+            </div>
+        </div>
         <div class="col-sm-4"></div>
     </div>
     <br />
@@ -68,6 +73,7 @@
         $('#ddl_users').prop('disabled', true);
         $('#btn_pagar').prop('disabled', true);
         $('#btn_check').prop('disabled', true);
+        $('#ddl_payments').prop('disabled', true);
         $('#btn_pagar').click(function () { 
             // Make a POST ajax request to register the new payment in the database and to register
             //    the user to the tourney it payed.
@@ -79,7 +85,9 @@
                 dataType: 'json',
                 data: {
                     user_cedula: $('#ddl_users').val(),
-                    tourney_id: $('#ddl_tourneys').val()
+                    tourney_id: $('#ddl_tourneys').val(),
+                    payment_id: $('#ddl_payments').val(),
+                    bill_mount: $('#pago_factura').val()
                 },
                 success: function (result) { 
 
@@ -159,6 +167,7 @@
                     complete: function (data) {
                         if (data.responseJSON !== null) {
                             $('#btn_pagar').prop('disabled', false);
+                            $('#ddl_payments').prop('disabled', false);
                             $.each(data.responseJSON, function (k, v) {
                                 //alert(k);
                                 if (k === "fullName")

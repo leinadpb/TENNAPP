@@ -12,5 +12,8 @@ namespace TennApp.ViewModels
         public int YoungUsers { get; set; }
         public int AdultUsers { get; set; }
         public int OldUsers { get; set; }
+        public int TotalMen { get; set; }
+        public int TotalWomen { get; set; }
+
     }
 }

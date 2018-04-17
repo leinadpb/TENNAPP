@@ -101,7 +101,7 @@ namespace TennApp.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("PersonID,FirstName,SecondName,LastName,SecondLastName,Nickname,Phone,Email,Age,Confirmed,Payment,Account,Biography,Cedula,TShirtID,CategoryID,TourneyID")] Person person)
+        public async Task<IActionResult> Edit(int id, [Bind("PersonID,FirstName,SecondName,LastName,SecondLastName,Nickname,Phone,Email,Age,Confirmed,Payment,Account,Biography,Cedula,TShirtID,CategoryID,TourneyID")] Person person, string sex)
         {
             if (id != person.PersonID)
             {
@@ -112,6 +112,7 @@ namespace TennApp.Controllers
             {
                 try
                 {
+                    person.Sexo = sex;
                     _context.Update(person);
                     await _context.SaveChangesAsync();
                 }
