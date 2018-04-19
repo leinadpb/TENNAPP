@@ -19,6 +19,8 @@
     <!-- Chart JS -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.min.js" integrity="sha256-CfcERD4Ov4+lKbWbYqXD6aFM9M51gN4GUEtDhkWABMo=" crossorigin="anonymous"></script>
 
+    <!--Font Awesome -->
+    <script type="text/javascript" src="~/lib/fontawesome/fontawesome-all.min.js"></script>
     <title>TennApp | @ViewData["Title"]</title>
 
     <style>
@@ -43,7 +45,10 @@
                     @if (SignInManager.IsSignedIn(User))
                     {
                         <!-- <div>@SignInManager.UserManager.GetUserName(User)</div> -->
-                    }
+                     }
+                </li>
+                <li>
+                    <a asp-controller="Admin" asp-action="Dashboard">Dashboard</a>
                 </li>
                 <li>
                     <a asp-controller="Admin" asp-action="Search">Búsquedas</a>
@@ -85,13 +90,13 @@
                     <a asp-controller="ReportTypes" asp-action="Index">Tipos de reporte</a>
                 </li>
                 @if (SignInManager.IsSignedIn(User))
-                {
-                    <li>
-                        <form method="post" asp-controller="Account" asp-action="Logout">
-                            <input type="submit" class="btn btn-secondary btn-block" value="Cerrar sesión" />
-                        </form>
-                    </li>
-                }
+    {
+            <li>
+                <form method="post" asp-controller="Account" asp-action="Logout">
+                    <input type="submit" class="btn btn-secondary btn-block" value="Cerrar sesión" />
+                </form>
+            </li>
+}
             </ul>
         </div>
         <!-- /#sidebar-wrapper -->
@@ -99,7 +104,8 @@
         <div class="top-line"></div>
         <div id="page-content-wrapper">
             <div class="container-fluid">
-                <a href="#menu-toggle" class="btn btn-sm btn-secondary" id="menu-toggle">Show/hide menu</a>
+                <!--<a href="#menu-toggle" class="btn btn-sm btn-secondary" id="menu-toggle">Show/hide menu</a>-->
+                <a href="#menu-toggle" id="menu-toggle"><i class="fas fa-bars"></i></a>
                 @RenderBody()
             </div>
         </div>
@@ -122,6 +128,16 @@
         });
     </script>
     <script src="~/js/site.min.js" asp-append-version="true"></script>
+
+    <script type="text/javascript">
+        $(window).resize(function () {
+            if ($(window).width() <= 415) {
+                $("#wrapper").toggleClass("toggled");
+            } else {
+                $("#wrapper").removeClass("toggled");
+            }
+        });
+    </script>
 
     @RenderSection("Scripts", required: false)
 </body>
