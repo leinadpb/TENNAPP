@@ -27,6 +27,22 @@ namespace TennApp.Controllers
             _context = ctx;
         }
 
+        [HttpGet]
+        public IActionResult SetSex()
+        {
+            ViewData["Users"] = new SelectList(_context.Persons.Where(p => p.Sexo == null), "PersonID", "FirstName");
+            return View();
+        }
+        [HttpPost]
+        public IActionResult SetSex(string sex, string user)
+        {
+            var person = _context.Persons.Where(p => p.PersonID == Int32.Parse(user)).FirstOrDefault();
+            person.Sexo = sex.ToUpper();
+            _context.SaveChanges();
+            ViewData["Users"] = new SelectList(_context.Persons.Where(p => p.Sexo == null), "PersonID", "FirstName");
+            return View();
+        }
+
         [Authorize]
         public IActionResult Dashboard()
         {
@@ -119,7 +135,11 @@ namespace TennApp.Controllers
             }
             data = await query.ToListAsync();
 
-            return View("Search", new SearchViewModel { People = data, Tshirts = _context.TShirts.ToList() });
+            return View("Search", new SearchViewModel {
+                People = data,
+                Tshirts = _context.TShirts.ToList(),
+                ResultQuantity = data.Count()
+            });
         }
         [HttpGet]
         public async Task<IActionResult> Reports()
@@ -151,6 +171,7 @@ namespace TennApp.Controllers
                     personByCategory = new PersonsByCategory();
                     personByCategory.Category = category;
                     List<PersonWithTShirt> tempPersons = new List<PersonWithTShirt>();
+                    personByCategory.PersonsQuantity = category.Persons.ToList().Count();
                     foreach(var p in category.Persons)
                     {
                         TShirt tempTShirt = await _context.TShirts.Where(ts => ts.TShirtID == p.TShirtID).SingleOrDefaultAsync();
@@ -187,6 +208,7 @@ namespace TennApp.Controllers
                     tmp = new PersonsByTourney();
                     tmp.Tourney = report;
                     tempPerson = new List<Person>();
+                    tmp.PersonsQuantity = report.Persons.ToList().Count();
                     foreach(var person in report.Persons)
                     {
                         tempPerson.Add(person);

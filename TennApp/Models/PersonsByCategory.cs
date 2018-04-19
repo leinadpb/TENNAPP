@@ -9,5 +9,6 @@ namespace TennApp.Models
     {
         public Category Category { get; set; }
         public List<PersonWithTShirt> Persons { get; set; }
+        public int PersonsQuantity { get; set; }
     }
 }

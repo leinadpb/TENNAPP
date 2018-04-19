@@ -10,5 +10,6 @@ namespace TennApp.ViewModels
     {
         public List<PersonWithTShirt> People { get; set; }
         public List<TShirt> Tshirts { get; set; }
+        public int ResultQuantity { get; set; }
     }
 }

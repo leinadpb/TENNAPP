@@ -1,0 +1,14 @@
+﻿@model Person
+@{
+    ViewData["Title"] = "SetSex";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Set Sex</h2>
+<form asp-action="setSex" method="post">
+    <select asp-for="PersonID" asp-items="ViewBag.Users" name="user" class="form-control"></select>
+    <input class="form-control" name="sex" />
+    <button type="submit" class="btn btn-success">Set sex</button>
+</form>
+
+

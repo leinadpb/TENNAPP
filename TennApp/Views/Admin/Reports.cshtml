@@ -50,7 +50,7 @@
         <br />
         @foreach (var item in Model.GeneralReport)
         {
-            <div><h4>@item.Category.Name</h4></div>
+            <div><h4>@item.Category.Name (<span>@item.PersonsQuantity</span>)</h4></div>
 
             <div class="table-responsive">
                 <table class="table table-bordered table-hover table-striped">
@@ -107,7 +107,7 @@
         <br />
         @foreach (var item in Model.PersonsByTourney)
         {
-            <div><h4>@item.Tourney.Name</h4></div>
+            <div><h4>@item.Tourney.Name (<span>@item.PersonsQuantity</span>)</h4></div>
 
             <div class="table-responsive">
                 <table class="table table-bordered table-hover table-striped">

@@ -2,15 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using TennApp.Models;
 
 namespace TennApp.Models
 {
-    public class PersonsByTourney
+    public class SetSexModelcs
     {
-        public Tourney Tourney { get; set; }
         public List<Person> Persons { get; set; }
-        public int PersonsQuantity { get; set; }
-
+        public int PersonID { get; set; }
     }
 }
